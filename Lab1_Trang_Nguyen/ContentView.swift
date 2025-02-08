@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var currentNumber: Int = Int.random(in: 1...1000)
+    @State private var showResponse: Bool = false
+    @State private var isCorrect: Bool = false
     var body: some View {
         VStack {
             Text("\(currentNumber)")
@@ -27,6 +29,12 @@ struct ContentView: View {
             }
         }
         .padding()
+        
+        if showResponse {
+            Text(isCorrect ? "Correct" : "Wrong")
+                .font(.system(size: 50))
+        }
+        
     }
     // Check if prime
     func isPrime(_ number: Int) -> Bool {
