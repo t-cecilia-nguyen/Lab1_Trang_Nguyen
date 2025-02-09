@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var currentNumber: Int = Int.random(in: 1...10)
     @State private var showResponse: Bool = false
     @State private var isCorrect: Bool = false
+    @State private var correctAnswers: Int = 0
+    @State private var incorrectAnswers: Int = 0
         
     var body: some View {
         VStack(spacing: 50) {
@@ -42,6 +44,13 @@ struct ContentView: View {
                 Text(" ")
                     .font(.system(size: 100))
             }
+            
+            // For Testing - Remove
+            Text("\(correctAnswers)")
+            Text("\(incorrectAnswers)")
+            Button ("New") {
+                currentNumber = Int.random(in: 1...10)
+            }
         }
         .padding()
 
@@ -53,8 +62,19 @@ struct ContentView: View {
     
     // Check answer
     func checkAnswer(isPrimeSelected: Bool) {
-        let isPrime = isPrime(currentNumber)
-        isCorrect = (isPrime == isPrimeSelected)
+        let correct = isPrimeSelected == isPrime(currentNumber)
+        updateScore(correct: correct)
+    }
+    
+    // Update score
+    func updateScore(correct: Bool) {
+        if correct {
+            correctAnswers += 1
+        } else {
+            incorrectAnswers += 1
+        }
+        
+        isCorrect = correct
         showResponse = true
     }
 }
