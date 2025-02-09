@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var currentNumber: Int = Int.random(in: 1...10)
+    private let numberRange = 1...10 // Change range
+    
+    @State private var currentNumber: Int = Int.random(in: 1...10) // Inital range
     @State private var showResponse: Bool = false
     @State private var isCorrect: Bool = false
     @State private var correctAnswers: Int = 0
@@ -104,12 +106,19 @@ struct ContentView: View {
         
         isCorrect = correct
         showResponse = true
+        pauseTimer = true
         
-        changeNumber()
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.showResponse = false
+//            self.changeNumber()
+//            self.pauseTimer = false
+//        }
         
         if attempts % 10 == 0 {
             pauseTimer = true
             score = true
+        } else {
+            changeNumber()
         }
     }
     
@@ -118,28 +127,37 @@ struct ContentView: View {
         correctAnswers = 0
         incorrectAnswers = 0
         attempts = 0
-        changeNumber()
+        currentNumber = Int.random(in: numberRange)
         showResponse = false
+        pauseTimer = false
+        timeRemaining = 5
     }
     
     // Change number
     func changeNumber() {
-        currentNumber = Int.random(in: 1...10)
-        timeRemaining = 5
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showResponse = false
+            self.currentNumber = Int.random(in: numberRange)
+            self.pauseTimer = false
+            self.timeRemaining = 5
+
+        }
     }
     
     // Record wrong answer
     func wrongAnswer() {
         attempts += 1
         incorrectAnswers += 1
+        
         isCorrect = false
         showResponse = true
-        
-        changeNumber()
+        pauseTimer = true
         
         if attempts % 10 == 0 {
             pauseTimer = true
             score = true
+        } else {
+            changeNumber()
         }
     }
 }
