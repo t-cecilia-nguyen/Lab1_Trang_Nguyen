@@ -13,8 +13,11 @@ struct ContentView: View {
     @State private var isCorrect: Bool = false
     @State private var correctAnswers: Int = 0
     @State private var incorrectAnswers: Int = 0
-        
+    @State private var attempts: Int = 0
+    @State private var score: Bool = false
+    
     var body: some View {
+
         VStack(spacing: 50) {
             Text("\(currentNumber)")
                 .font(.system(size: 60, weight: .bold))
@@ -28,7 +31,7 @@ struct ContentView: View {
                 Text("Not Prime")
                     .font(.system(size: 40))
             }
-
+            
             
             if showResponse {
                 if isCorrect {
@@ -45,15 +48,21 @@ struct ContentView: View {
                     .font(.system(size: 100))
             }
             
-            // For Testing - Remove
-            Text("\(correctAnswers)")
-            Text("\(incorrectAnswers)")
-            Button ("New") {
-                currentNumber = Int.random(in: 1...10)
-            }
-        }
-        .padding()
 
+                // For Testing - Remove
+                Text("\(correctAnswers)")
+                Text("\(incorrectAnswers)")
+                Button ("New") {
+                    currentNumber = Int.random(in: 1...10)
+                }
+        }
+        .alert(isPresented: $score) {
+            Alert(title: Text("Final Score"),
+                  message: Text("Correct Answers: \(correctAnswers)\nIncorrect Answers: \(incorrectAnswers)"),dismissButton: .default(Text("OK"))
+                
+                  )
+          }
+        
     }
     // Check if prime
     func isPrime(_ number: Int) -> Bool {
@@ -68,6 +77,7 @@ struct ContentView: View {
     
     // Update score
     func updateScore(correct: Bool) {
+        attempts += 1
         if correct {
             correctAnswers += 1
         } else {
@@ -76,8 +86,13 @@ struct ContentView: View {
         
         isCorrect = correct
         showResponse = true
+        
+        if attempts % 10 == 0 {
+            score = true
+        }
     }
 }
+
 
 #Preview {
     ContentView()
