@@ -49,12 +49,12 @@ struct ContentView: View {
             }
             
 
-                // For Testing - Remove
-                Text("\(correctAnswers)")
-                Text("\(incorrectAnswers)")
-                Button ("New") {
-                    currentNumber = Int.random(in: 1...10)
-                }
+//                // For Testing - Remove
+//                Text("\(correctAnswers)")
+//                Text("\(incorrectAnswers)")
+//                Button ("New") {
+//                    currentNumber = Int.random(in: 1...10)
+//                }
         }
         .alert(isPresented: $score) {
             Alert(title: Text("Final Score"),
@@ -87,6 +87,8 @@ struct ContentView: View {
         isCorrect = correct
         showResponse = true
         
+        changeNumber()
+        
         if attempts % 10 == 0 {
             score = true
         }
@@ -97,8 +99,13 @@ struct ContentView: View {
         correctAnswers = 0
         incorrectAnswers = 0
         attempts = 0
-        currentNumber = Int.random(in: 1...10)
+        changeNumber()
         showResponse = false
+    }
+    
+    // Change number
+    func changeNumber() {
+        currentNumber = Int.random(in: 1...10)
     }
 }
 
