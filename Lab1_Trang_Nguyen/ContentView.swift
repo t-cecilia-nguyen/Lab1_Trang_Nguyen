@@ -58,7 +58,7 @@ struct ContentView: View {
         }
         .alert(isPresented: $score) {
             Alert(title: Text("Final Score"),
-                  message: Text("Correct Answers: \(correctAnswers)\nIncorrect Answers: \(incorrectAnswers)"),dismissButton: .default(Text("OK"))
+                  message: Text("Correct Answers: \(correctAnswers)\nIncorrect Answers: \(incorrectAnswers)"),dismissButton: .default(Text("New Game"), action: newGame)
                 
                   )
           }
@@ -90,6 +90,15 @@ struct ContentView: View {
         if attempts % 10 == 0 {
             score = true
         }
+    }
+    
+    // Start new game
+    func newGame() {
+        correctAnswers = 0
+        incorrectAnswers = 0
+        attempts = 0
+        currentNumber = Int.random(in: 1...10)
+        showResponse = false
     }
 }
 
