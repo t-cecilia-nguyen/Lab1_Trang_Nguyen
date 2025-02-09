@@ -11,11 +11,12 @@ struct ContentView: View {
     @State private var currentNumber: Int = Int.random(in: 1...10)
     @State private var showResponse: Bool = false
     @State private var isCorrect: Bool = false
+        
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 50) {
             Text("\(currentNumber)")
                 .font(.system(size: 60, weight: .bold))
-
+            
             Button(action:  { checkAnswer(isPrimeSelected: true) }) {
                 Text("Prime")
                     .font(.system(size: 40))
@@ -28,11 +29,18 @@ struct ContentView: View {
 
             
             if showResponse {
-                Text(isCorrect ? "Correct" : "Wrong")
-                    .font(.system(size: 40))
+                if isCorrect {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.green)
+                        .font(.system(size: 125))
+                } else {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.red)
+                        .font(.system(size: 125))
+                }
             } else {
                 Text(" ")
-                    .font(.system(size: 40))
+                    .font(.system(size: 100))
             }
         }
         .padding()
