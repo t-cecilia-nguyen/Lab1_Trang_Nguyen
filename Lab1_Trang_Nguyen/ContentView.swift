@@ -60,6 +60,7 @@ struct ContentView: View {
                         }
                         
                 }
+                .disabled(pauseTimer)
                 
                 Button(action: { checkAnswer(isPrimeSelected: false) }) {
                     Text("Not Prime")
@@ -73,6 +74,7 @@ struct ContentView: View {
                                 .saturation(2)
                         }
                 }
+                .disabled(pauseTimer)
                 
                 if showResponse {
                     if isCorrect {
