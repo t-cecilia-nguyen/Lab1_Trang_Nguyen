@@ -22,16 +22,21 @@ struct ContentView: View {
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    let backgroundColor = Color(red: 244/255, green: 248/255, blue: 211/255)
+    let backgroundColor = Color(red: 22/255, green: 64/255, blue: 77/255)
+    //Color(red: 244/255, green: 248/255, blue: 211/255)
     
     let gradientColor = LinearGradient(
         gradient: Gradient(colors: [
-            Color(red: 247/255, green: 207/255, blue: 216/255),
-            Color(red: 115/255, green: 199/255, blue: 199/255)
+            Color(red: 221/255, green: 168/255, blue: 83/255),
+            Color(red: 166/255, green: 205/255, blue: 198/255)
+            //Color(red: 247/255, green: 207/255, blue: 216/255),
+            //Color(red: 115/255, green: 199/255, blue: 199/255)
         ]),
         startPoint: .topLeading,
         endPoint: .bottomTrailing
         )
+    
+    let textColor = Color(red: 251/255, green: 245/255, blue: 221/255)
     
     var body: some View {
         
@@ -41,12 +46,14 @@ struct ContentView: View {
             
             VStack(spacing: 30) {
                 Text("\(currentNumber)")
+                    .foregroundColor(textColor)
                     .font(.system(size: 60, weight: .bold))
                     .padding(.bottom, 100)
                 
                 Button(action:  { checkAnswer(isPrimeSelected: true) }) {
                     Text("Prime")
                         .font(.system(size: 40))
+                        .foregroundColor(textColor)
                         .padding(.horizontal, 40)
                         .padding(.vertical, 20)
                         .background {
@@ -60,6 +67,7 @@ struct ContentView: View {
                 Button(action: { checkAnswer(isPrimeSelected: false) }) {
                     Text("Not Prime")
                         .font(.system(size: 40))
+                        .foregroundColor(textColor)
                         .padding(.horizontal, 40)
                         .padding(.vertical, 20)
                         .background {
