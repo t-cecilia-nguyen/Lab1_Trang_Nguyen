@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let numberRange = 1...10 // Change range
+    private let numberRange = 1...100 // Change range here
     
-    @State private var currentNumber: Int = Int.random(in: 1...10) // Inital range
+    @State private var currentNumber: Int = Int.random(in: 1...100) // Initial range, change here
     @State private var showResponse: Bool = false
     @State private var isCorrect: Bool = false
     @State private var correctAnswers: Int = 0
@@ -169,7 +169,6 @@ struct ContentView: View {
             self.currentNumber = Int.random(in: numberRange)
             self.pauseTimer = false
             self.timeRemaining = 5
-
         }
     }
     
@@ -190,7 +189,6 @@ struct ContentView: View {
         }
     }
 }
-    
 
 #Preview {
     ContentView()
