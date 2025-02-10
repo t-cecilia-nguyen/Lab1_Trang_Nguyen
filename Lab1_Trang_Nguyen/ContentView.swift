@@ -24,24 +24,49 @@ struct ContentView: View {
     
     let backgroundColor = Color(red: 244/255, green: 248/255, blue: 211/255)
     
+    let gradientColor = LinearGradient(
+        gradient: Gradient(colors: [
+            Color(red: 247/255, green: 207/255, blue: 216/255),
+            Color(red: 115/255, green: 199/255, blue: 199/255)
+        ]),
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+        )
+    
     var body: some View {
         
         ZStack {
             backgroundColor
                 .ignoresSafeArea()
             
-            VStack(spacing: 50) {
+            VStack(spacing: 30) {
                 Text("\(currentNumber)")
                     .font(.system(size: 60, weight: .bold))
+                    .padding(.bottom, 100)
                 
                 Button(action:  { checkAnswer(isPrimeSelected: true) }) {
                     Text("Prime")
                         .font(.system(size: 40))
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 20)
+                        .background {
+                            Capsule()
+                                .stroke(gradientColor, lineWidth: 5)
+                                .saturation(2)
+                        }
+                        
                 }
                 
                 Button(action: { checkAnswer(isPrimeSelected: false) }) {
                     Text("Not Prime")
                         .font(.system(size: 40))
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 20)
+                        .background {
+                            Capsule()
+                                .stroke(gradientColor, lineWidth: 5)
+                                .saturation(2)
+                        }
                 }
                 
                 if showResponse {
@@ -56,7 +81,7 @@ struct ContentView: View {
                     }
                 } else {
                     Text(" ")
-                        .font(.system(size: 100))
+                        .font(.system(size: 97))
                 }
                 
                 Text("Time Remaining: \(timeRemaining)")
