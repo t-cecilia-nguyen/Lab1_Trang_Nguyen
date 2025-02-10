@@ -22,64 +22,63 @@ struct ContentView: View {
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    let backgroundColor = Color(red: 244/255, green: 248/255, blue: 211/255)
+    
     var body: some View {
         
-        VStack(spacing: 50) {
-            Text("\(currentNumber)")
-                .font(.system(size: 60, weight: .bold))
+        ZStack {
+            backgroundColor
+                .ignoresSafeArea()
             
-            Button(action:  { checkAnswer(isPrimeSelected: true) }) {
-                Text("Prime")
-                    .font(.system(size: 40))
-            }
-            
-            Button(action: { checkAnswer(isPrimeSelected: false) }) {
-                Text("Not Prime")
-                    .font(.system(size: 40))
-            }
-            
-            if showResponse {
-                if isCorrect {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.green)
-                        .font(.system(size: 125))
-                } else {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.red)
-                        .font(.system(size: 125))
+            VStack(spacing: 50) {
+                Text("\(currentNumber)")
+                    .font(.system(size: 60, weight: .bold))
+                
+                Button(action:  { checkAnswer(isPrimeSelected: true) }) {
+                    Text("Prime")
+                        .font(.system(size: 40))
                 }
-            } else {
-                Text(" ")
-                    .font(.system(size: 100))
+                
+                Button(action: { checkAnswer(isPrimeSelected: false) }) {
+                    Text("Not Prime")
+                        .font(.system(size: 40))
+                }
+                
+                if showResponse {
+                    if isCorrect {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.green)
+                            .font(.system(size: 125))
+                    } else {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.red)
+                            .font(.system(size: 125))
+                    }
+                } else {
+                    Text(" ")
+                        .font(.system(size: 100))
+                }
+                
+                Text("Time Remaining: \(timeRemaining)")
+                    .foregroundColor(.red)
+                
             }
-            
-            
-            //                // For Testing - Remove
-            //                Text("\(correctAnswers)")
-            //                Text("\(incorrectAnswers)")
-            //                Button ("New") {
-            //                    currentNumber = Int.random(in: 1...10)
-            //                }
-            
-            Text("Time Remaining: \(timeRemaining)")
-                .foregroundColor(.red)
-            
-        }
-        .alert(isPresented: $score) {
-            Alert(
-                title: Text("Final Score"),
-                message: Text("Correct Answers: \(correctAnswers)\nIncorrect Answers: \(incorrectAnswers)"),
-                dismissButton: .default(Text("New Game"), action: {
-                    pauseTimer = false
-                    newGame()
-                })
-            )
-        }
-        .onReceive(timer) { _ in
-            if !pauseTimer && timeRemaining > 0 {
-                timeRemaining -= 1
-            } else if !pauseTimer {
-                wrongAnswer()
+            .alert(isPresented: $score) {
+                Alert(
+                    title: Text("Final Score"),
+                    message: Text("Correct Answers: \(correctAnswers)\nIncorrect Answers: \(incorrectAnswers)"),
+                    dismissButton: .default(Text("New Game"), action: {
+                        pauseTimer = false
+                        newGame()
+                    })
+                )
+            }
+            .onReceive(timer) { _ in
+                if !pauseTimer && timeRemaining > 0 {
+                    timeRemaining -= 1
+                } else if !pauseTimer {
+                    wrongAnswer()
+                }
             }
         }
     }
@@ -107,12 +106,6 @@ struct ContentView: View {
         isCorrect = correct
         showResponse = true
         pauseTimer = true
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.showResponse = false
-//            self.changeNumber()
-//            self.pauseTimer = false
-//        }
         
         if attempts % 10 == 0 {
             pauseTimer = true
@@ -161,6 +154,7 @@ struct ContentView: View {
         }
     }
 }
+    
 
 #Preview {
     ContentView()
