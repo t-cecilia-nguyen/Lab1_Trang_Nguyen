@@ -79,20 +79,24 @@ struct ContentView: View {
                 if showResponse {
                     if isCorrect {
                         Image(systemName: "checkmark")
+                            .padding(.top, 20)
                             .foregroundColor(.green)
                             .font(.system(size: 120))
                     } else {
                         Image(systemName: "xmark")
+                            .padding(.top, 20)
                             .foregroundColor(.red)
                             .font(.system(size: 125))
                     }
                 } else {
                     Text(" ")
                         .font(.system(size: 97))
+                        .padding(.top, 20)
                 }
                 
                 Text("Time Remaining: \(timeRemaining)")
                     .foregroundColor(textColor)
+                    .padding(.top, 20)
                 
             }
             .alert(isPresented: $score) {
