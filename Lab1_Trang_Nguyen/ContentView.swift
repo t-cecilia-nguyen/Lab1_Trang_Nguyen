@@ -23,14 +23,11 @@ struct ContentView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     let backgroundColor = Color(red: 22/255, green: 64/255, blue: 77/255)
-    //Color(red: 244/255, green: 248/255, blue: 211/255)
     
     let gradientColor = LinearGradient(
         gradient: Gradient(colors: [
             Color(red: 221/255, green: 168/255, blue: 83/255),
             Color(red: 166/255, green: 205/255, blue: 198/255)
-            //Color(red: 247/255, green: 207/255, blue: 216/255),
-            //Color(red: 115/255, green: 199/255, blue: 199/255)
         ]),
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -81,7 +78,7 @@ struct ContentView: View {
                     if isCorrect {
                         Image(systemName: "checkmark")
                             .foregroundColor(.green)
-                            .font(.system(size: 125))
+                            .font(.system(size: 120))
                     } else {
                         Image(systemName: "xmark")
                             .foregroundColor(.red)
@@ -93,7 +90,7 @@ struct ContentView: View {
                 }
                 
                 Text("Time Remaining: \(timeRemaining)")
-                    .foregroundColor(.red)
+                    .foregroundColor(textColor)
                 
             }
             .alert(isPresented: $score) {
